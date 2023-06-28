@@ -9,13 +9,13 @@ pipeline{
          stage('Build the project'){
            steps{
                echo 'building the project'
-               sh 'mvn clean install -DskipTests'
+               
              }
          }
          stage('codequality analyzing'){
           steps{
              echo 'codequality analyzing'
-              sh 'mvn spring-boot:run'
+              
        }
          }
          stage('building the docker image'){
