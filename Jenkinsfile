@@ -21,7 +21,7 @@ pipeline{
          stage('building the docker image'){
           steps{
              echo 'build the docker image '
-            dockerImage=docker.build+":$BUILD_NUMBER"
+            dockerImage=docker.build registry+":$BUILD_NUMBER"
        }
          }
          stage('push the image to docker hub'){
