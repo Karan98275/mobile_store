@@ -17,6 +17,7 @@ pipeline{
              echo 'codequality analyzing'
               sh 'mvn spring-boot:run'
        }
+         }
          stage('building the docker image'){
           steps{
              echo 'build the docker image '
@@ -37,4 +38,4 @@ pipeline{
 
   }
 }
-        
+     }       
