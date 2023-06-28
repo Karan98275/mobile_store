@@ -1,11 +1,14 @@
 pipeline{
   environment{
-    registry="skillassure/mobilestore-amadeus"
+    registry="Karansi98275/mobilestore-amadeus"
     registryCredentials="docker_hub_Auth"
     dockerImage=""
   }
      agent any
      stages{
+      stage('Checkout the scm'){
+        echo 'code has been checkout'
+      }
          stage('Build the project'){
            steps{
                echo 'building the project'
