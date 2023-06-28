@@ -1,4 +1,9 @@
 pipeline{
+  environment{
+    registry="skillassure/mobilestore-amadeus"
+    registryCredentials="docker_hub_Auth"
+    dockerImage=""
+  }
      agent any
      stages{
          stage('Build the project'){
@@ -7,19 +12,29 @@ pipeline{
                sh 'mvn clean install -DskipTests'
              }
          }
-       stage('Run the maven'){
+         stage('codequality analyzing'){
           steps{
-             echo 'run the project'
+             echo 'codequality analyzing'
               sh 'mvn spring-boot:run'
        }
-       stage("My stage") {            
-        steps {
-            bat label: 'My batch script',
-                script: ''' @echo off
-                            return_1_if_success.exe   // command which returns 1 in case of success, 0 otherwise
-                            IF %ERRORLEVEL% EQU 1 (exit /B 0) ELSE (exit /B 1)'''
-        }
-      }
-    }
+         stage('building the docker image'){
+          steps{
+             echo 'build the docker image'
+            dockerImage=docker.build+":$BUILD_NUMBER"
+       }
+         }
+         stage('push the image to docker hub'){
+          steps{
+             echo 'pushing the docker image to docker hub'
+             script{
+              docker.withRegistry("",'registryCredentials'){
+                dockerImage.push()
+                dockerImage.push("$BUILD_NUMBER")
+              }
+             }
+              sh 'mvn spring-boot:run'
+       }
+
   }
+}
         
