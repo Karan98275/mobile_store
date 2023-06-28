@@ -6,9 +6,7 @@ pipeline{
   }
      agent any
      stages{
-      stage('Checkout the scm'){
-        echo 'code has been checkout'
-      }
+      
          stage('Build the project'){
            steps{
                echo 'building the project'
