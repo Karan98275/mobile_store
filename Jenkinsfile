@@ -21,19 +21,20 @@ pipeline{
          stage('building the docker image'){
           steps{
              echo 'build the docker image '
+             script{
             dockerImage=docker.build registry+":$BUILD_NUMBER"
+             }
        }
          }
          stage('push the image to docker hub'){
           steps{
              echo 'pushing the docker image to docker hub'
              script{
-              docker.withRegistry("",'registryCredentials'){
+              docker.withRegistry(",registryCredentials"){
                 dockerImage.push()
-                dockerImage.push("$BUILD_NUMBER")
+                dockerImage.push('$BUILD_NUMBER')
               }
              }
-              sh 'mvn spring-boot:run'
        }
 
   }
