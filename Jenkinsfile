@@ -1,7 +1,7 @@
 pipeline{
   environment{
     registry="Karansi98275/mobilestore-amadeus"
-    registryCredentials="docker_hub_Auth"
+    registryCredential="docker_hub_Auth"
     dockerImage=""
   }
      agent any
