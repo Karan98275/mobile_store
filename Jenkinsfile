@@ -30,13 +30,20 @@ pipeline{
           steps{
              echo 'pushing the docker image to docker hub'
              script{
-              docker.withRegistry(",registryCredentials"){
+              docker.withRegistry('',registryCredentials){
                 dockerImage.push()
-                dockerImage.push('$BUILD_NUMBER')
+                dockerImage.push('Latest')
               }
              }
        }
 
+  }
+  stage('deploying in to dev env'){
+    steps{
+      echo "employment to the developer environment"
+      sh 'docker rm -f mobilestore-amadeus || true'
+      sh 'docker run -d  --name=mobilestore-amadeus -p 8099:8099 skillassure/mobilestore-amadeus'
+    }
   }
 }
      }       
