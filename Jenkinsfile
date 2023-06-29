@@ -1,6 +1,6 @@
 pipeline{
   environment{
-    registry="Karansi98275/mobilestore-amadeus"
+    registry="karansi98275/mobilestore-amadeus"
     registryCredential="docker_hub_Auth"
     dockerImage=""
   }
@@ -31,7 +31,7 @@ pipeline{
           steps{
              echo 'pushing the docker image to docker hub'
              script{
-              docker.withRegistry('',registryCredentials){
+              docker.withRegistry('',registryCredential){
                 dockerImage.push()
                 dockerImage.push('Latest')
               }
